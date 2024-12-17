@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android" id="cordova-admob" version="4.2.2">
+  <description>Google AdMob Ads plugin for Cordova, Phonegap, Ionic/Angular and Intel XDK. Monetize your app with one javascript line. Android SDK v7.5, iOS SDK v7.3.1. With support for tappx and auto-detect internet connection.</description>
+  <name>AdMob Google Ads + Tappx</name>
+  <license>MIT</license>
+  <keywords>ad,ads,admob,google,advertising,advertisment,publicity,earn,win,play,services,iad,flurry,monetization,money,appit,tappx</keywords>
+  <repo>https://github.com/appit-online/appit-cordova-admob.git</repo>
+  <issue>https://github.com/appit-online/appit-cordova-admob/issues</issue>
+
+  <engines>
+    <engine name="cordova" version=">=5.0.0" />
+  </engines>
+
+  <dependency id="cordova-connectivity-monitor" />
+  <dependency id="cordova-play-services-version-adapter" />
+
+  <js-module src="www/admob.js" name="AdMobAds">
+    <clobbers target="window.admob" />
+    <clobbers target="window.tappx" />
+  </js-module>
+
+  <hook type="after_plugin_add" src="scripts/100-prepare-admob-angular.js" />
+  <asset src="www/angular-admob.js" target="lib/angular-admob/angular-admob.js" />
+
+  <!-- android -->
+  <platform name="android">
+    <config-file target="res/xml/config.xml" parent="/*">
+      <feature name="AdMobAds">
+        <param name="android-package" value="de.appit.cordova.admob.AdMobAds" />
+      </feature>
+    </config-file>
+
+    <config-file target="AndroidManifest.xml" parent="/manifest/application">
+      <activity android:name="com.google.android.gms.ads.AdActivity" android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" android:theme="@android:style/Theme.Translucent" />
+    </config-file>
+
+    <config-file target="AndroidManifest.xml" parent="/*">
+      <uses-permission android:name="android.permission.INTERNET" />
+      <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    </config-file>
+
+    <framework src="com.google.android.gms:play-services-ads:15.0.0" />
+
+    <source-file src="src/android/AdMobAds.java" target-dir="src/com/appit/cordova/admob" />
+    <source-file src="src/android/AdMobAdsAdListener.java" target-dir="src/com/appit/cordova/admob" />
+    <source-file src="src/android/AdMobAdsRewardedAdListener.java" target-dir="src/com/appit/cordova/admob" />
+    <source-file src="src/android/res/xml/admob.xml" target-dir="res/xml" />
+  </platform>
+
+  <!-- ios -->
+  <platform name="ios">
+    <config-file target="config.xml" parent="/*">
+      <feature name="AdMobAds">
+        <param name="ios-package" value="CDVAdMobAds" />
+      </feature>
+    </config-file>
+
+    <header-file src="src/ios/CDVAdMobAds.h" />
+    <source-file src="src/ios/CDVAdMobAds.m" />
+    <header-file src="src/ios/CDVAdMobAdsAdListener.h" />
+    <source-file src="src/ios/CDVAdMobAdsAdListener.m" />
+    <header-file src="src/ios/CDVAdMobAdsRewardedAdListener.h" />
+    <source-file src="src/ios/CDVAdMobAdsRewardedAdListener.m" />
+
+    <!-- Google AdMob framework -->
+    <dependency id="cordova-libgoogleadmobads" url="https://github.com/cozycodegh/cordova-plugin-ads" commit="master"/>
+  </platform>
+</plugin>
