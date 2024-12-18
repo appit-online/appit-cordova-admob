@@ -63,6 +63,6 @@
     <source-file src="src/ios/CDVAdMobAdsRewardedAdListener.m" />
 
     <!-- Google AdMob framework -->
-    <dependency id="cordova-libgoogleadmobads" url="https://github.com/cozycodegh/cordova-plugin-ads" commit="master"/>
+    <dependency id="cordova-libgoogleadmobads" url="https://github.com/appit-online/appit-cordova-libgoogleadmobads" commit="master"/>
   </platform>
 </plugin>
